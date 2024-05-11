@@ -1,0 +1,96 @@
+def chaining():
+    hashtable=[[]for _ in range(10)]
+    def insert(key):
+        indx=key%10
+        hashtable[indx].append(key)
+    def display():
+        for i in range(10):
+            print("h[",i,"]",end='')
+            print("-->",hashtable[i])
+    def search(key):
+        flag=0
+        indx=key%10
+        count=1
+        for i in hashtable[indx]:
+            if(i==key):
+                flag=1
+            else:
+                count=count+1
+        if (flag==1 and count<10):
+            print("key is found at indx: ",indx)
+            print("no. of probes required to search telephone no is ",count)
+        else:
+            print("key is not found")
+    print()
+    print("1.insert")
+    print("2.display")
+    print("3.search")
+    print("4.exit")
+    a=int(input("enter ur choice :"))
+    while(a!=4):
+        if a==1:
+            key=int(input("enter the key :"))
+            insert(key)
+        if a==2:
+            display()
+        if a==3:
+            key=int(input("enter the key to be searched :"))
+            search(key)
+        a=int(input("enter ur choice :"))
+def linear():
+    l=[]
+    for i in range (10):
+        l.append(-1)
+    def insert():
+        key=int(input("enter the telephone no."))
+        indx=key%10
+        if(l[indx]==-1):
+            l[indx]=key
+        else:
+            for i in range (10):
+                indx=(key+i) %10
+                if(l[indx]==-1):
+                    l[indx]=key
+                    break
+    def display():
+        for i in range(10):
+            print("h[",i,"]=",l[i])
+    def search():
+        flag=0
+        a=int(input("enter the telephone no to be searched :"))
+        indx=a%10
+        count=1
+        for i in range(10):
+            indx=(key+i)%10
+            if(l[indx]==a):
+                flag=1
+            else:
+                count=count+1
+        if(flag==1 and count>10):
+            print("key is found at index :",indx)
+            print("no. of probes to search a number is :",count)
+        else:
+            print("key is not found")
+    
+    print()
+    print("1. insert")
+    print("2. display")
+    print("3. search")
+    print("4. exit")
+    a=int(input("enter ur choice"))
+    while(a!=4):
+        if a==1:
+            insert()
+        if a==2:
+            display()
+        if a==3:
+            search()
+        a=int(input("enter your choice"))
+print(" 1. with chaining")
+print(" 2. without chaining")
+a=int(input("enter ur choice"))
+while(a!=3):
+    if(a==1):
+        chaining()
+    if(a==2):
+        linear()

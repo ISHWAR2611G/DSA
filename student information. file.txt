@@ -1,0 +1,88 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+class student{
+    int roll;
+    char name[10];
+    char div[10];
+    char address[10];
+    public:
+    void add(){
+        cout<<"Enter the roll no. :"<<endl;
+        cin>>roll;
+        cout<<"Enter the name of student :"<<endl;
+        cin>>name;
+        cout<<"enter the division :"<<endl;
+        cin>>div;
+        cout<<"Enter the address of the student :"<<endl;
+        cin>>address;
+    }
+    void display(){
+        cout<<roll<<"\t"<<name<<"\t"<<div<<"\t"<<address<<endl;
+    }
+    void show(){
+        student s;
+        ifstream out("info.txt");
+        out.read((char*)&s,sizeof(s));
+        while(!out.eof()){
+            s.display();
+            out.read((char*)&s,sizeof(s));
+        }
+    }
+    void search(){
+        int id,flag=0;
+        student obj;
+        cout<<"Enter the roll no. to be searched :"<<endl;
+        cin>>id;
+        ifstream in("info.txt");
+        in.read((char*)&obj,sizeof(obj));
+        while(!in.eof()){
+            if(obj.roll==id){
+                flag=1;
+                obj.display();
+                break;
+            }
+            in.read((char*)&obj,sizeof(obj));
+        }
+        if(flag==0){
+            cout<<"roll.no is not found "<<endl;
+        }
+    }
+    void del(){
+        int call;
+        student obj;
+        cout << "Enter the roll no to be deleted: " << endl;
+        cin >> call;
+        ifstream in("info.txt");
+        ofstream out("temp.txt");
+        while (in.read((char*)&obj, sizeof(obj))) {
+            if (obj.roll == call) {
+                cout << "Record with roll number " << call << " has been deleted." << endl;
+                continue; // Skip writing this record to the output file
+            }
+            out.write((char*)&obj, sizeof(obj));
+        }
+        out.close();
+        in.close();
+        remove("info.txt");
+        rename("temp.txt", "info.txt");
+    }
+};
+int main(){
+    student s;
+    ofstream in;
+    in.open("info.txt");
+    string ch;
+    do{
+        s.add();
+        in.write((char*)&s,sizeof(s));
+        cout<<"do you want to add more data :"<<endl;
+        cin>>ch;
+    }while(ch=="y"||ch=="Y");
+    in.close();
+    s.show();
+    s.search();
+    s.del();
+    s.show();
+    return 0;
+}

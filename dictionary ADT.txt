@@ -1,0 +1,63 @@
+def quadratic():
+    l={}
+    for i in range (10):
+        l[i]=-1
+    def insert():
+        key=int(input("enter the telephone no."))
+        value=input("enter the name ")
+        indx=key%10
+        if(l[indx]==-1):
+            l[indx]=value
+        else:
+            for i in range (10):
+                indx=(key+i*i) %10
+                if(l[indx]==-1):
+                    l[indx]= value
+                    break
+    def display():
+        for i in range(10):
+            print("h[",i,"]=",l[i])
+    def search():
+        flag=0
+        a=int(input("enter the telephone no to be searched :"))
+        b=input("enter the name")
+        count=1
+        for i in range(10):
+            indx=(a+i*i)%10
+            if(l[indx]==b):
+                flag=1
+                break
+            else:
+                count=count+1
+        if(flag==1 and count<10):
+            print("key is found at index :",indx)
+            print("no. of probes to search a number is :",count)
+        else:
+            print("key is not found")
+    def delete():
+        key=int(input("enter the key to be deleted :"))
+        value=input("enter the name you want to delete :")
+        for i in range(10):
+            indx=(key+i*i)%10
+            if(l[indx]!=-1):
+                if(l[indx]==value):
+                    l[indx]=-1
+                    break
+        print()
+    print("1.insert")
+    print("2.display")
+    print("3.search")
+    print("4.delete")
+    print("5.exit")
+    a=int(input("enter ur choice"))
+    while(a!=5):
+        if a==1:
+            insert()
+        if a==2:
+            display()
+        if a==3:
+            search()
+        a=int(input("enter your choice"))
+        if a==4:
+            delete()
+quadratic()
